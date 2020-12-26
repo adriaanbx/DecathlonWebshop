@@ -1,8 +1,10 @@
 using DecathlonWebshop.Contracts;
+using DecathlonWebshop.Models;
 using DecathlonWebshop.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,8 +27,11 @@ namespace DecathlonWebshop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IProductRepository, MockProductRepository>();
-            services.AddScoped<ICategoryRepository, MockCategoryRepository>();
+            services.AddDbContextPool<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddControllersWithViews();
 
