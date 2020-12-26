@@ -30,5 +30,13 @@ namespace DecathlonWebshop.Controllers
 
             return View(productViewModel);
         }
+
+        public IActionResult Details(int id)
+        {
+           var product =  _productRepository.GetProductById(id);
+            if (product is null)
+                return NotFound();
+            return View(product);
+        }
     }
 }
