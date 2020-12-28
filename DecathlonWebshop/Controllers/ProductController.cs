@@ -1,4 +1,5 @@
 ﻿using DecathlonWebshop.Contracts;
+using DecathlonWebshop.Models;
 using DecathlonWebshop.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,17 +19,40 @@ namespace DecathlonWebshop.Controllers
         {
             _categoryRepository = categoryRepository;
             _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
         }
 
-        public IActionResult List()
+        //public IActionResult List()
+        //{
+        //    ProductsListViewModel productViewModel = new ProductsListViewModel();
+
+        //    productViewModel.Products = _productRepository.AllProducts;
+        //    productViewModel.CurrentCategory = "Swimming";
+
+        //    return View(productViewModel);
+        //}
+
+        public ViewResult List(string category)
         {
-            ProductsListViewModel productViewModel = new ProductsListViewModel();
+            IEnumerable<Product> pies;
+            string currentCategory;
 
-            productViewModel.Products = _productRepository.AllProducts;
-            productViewModel.CurrentCategory = "Swimming";
+            if (string.IsNullOrEmpty(category))
+            {
+                pies = _productRepository.AllProducts.OrderBy(p => p.Id);
+                currentCategory = "All products";
+            }
+            else
+            {
+                pies = _productRepository.AllProducts.Where(p => p.Category.Name == category)
+                    .OrderBy(p => p.Id);
+                currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.Name == category)?.Name;
+            }
 
-            return View(productViewModel);
+            return View(new ProductsListViewModel
+            {
+                Products = pies,
+                CurrentCategory = currentCategory
+            });
         }
 
         public IActionResult Details(int id)
