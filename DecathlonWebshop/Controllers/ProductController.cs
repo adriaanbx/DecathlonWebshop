@@ -33,24 +33,24 @@ namespace DecathlonWebshop.Controllers
 
         public ViewResult List(string category)
         {
-            IEnumerable<Product> pies;
+            IEnumerable<Product> product;
             string currentCategory;
 
             if (string.IsNullOrEmpty(category))
             {
-                pies = _productRepository.AllProducts.OrderBy(p => p.Id);
+                product = _productRepository.AllProducts.OrderBy(p => p.Id);
                 currentCategory = "All products";
             }
             else
             {
-                pies = _productRepository.AllProducts.Where(p => p.Category.Name == category)
+                product = _productRepository.AllProducts.Where(p => p.Category.Name == category)
                     .OrderBy(p => p.Id);
                 currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.Name == category)?.Name;
             }
 
             return View(new ProductsListViewModel
             {
-                Products = pies,
+                Products = product,
                 CurrentCategory = currentCategory
             });
         }
