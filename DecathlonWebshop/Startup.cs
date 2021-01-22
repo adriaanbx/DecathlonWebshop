@@ -1,3 +1,4 @@
+using DecathlonWebshop.Auth;
 using DecathlonWebshop.Contracts;
 using DecathlonWebshop.Models;
 using DecathlonWebshop.Repositories;
@@ -31,7 +32,7 @@ namespace DecathlonWebshop
             services.AddDbContextPool<AppDbContext>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric=true;

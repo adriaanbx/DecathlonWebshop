@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using DecathlonWebshop.Auth;
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -29,6 +34,10 @@
                         @await Component.InvokeAsync("CategoryMenu")
                         <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
                         @await Component.InvokeAsync("ShoppingCartSummary")
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li><a asp-controller="Admin" asp-action="UserManagement">Admin</a></li>
+                        }
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>

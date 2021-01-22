@@ -1,4 +1,5 @@
-﻿using DecathlonWebshop.Models;
+﻿using DecathlonWebshop.Auth;
+using DecathlonWebshop.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,9 @@ namespace DecathlonWebshop.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminController(UserManager<IdentityUser> userManager)
+        public AdminController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -25,7 +26,7 @@ namespace DecathlonWebshop.Controllers
             return View(users);
         }
 
-        public IActionResult AddUser(IdentityUser user)
+        public IActionResult AddUser(ApplicationUser user)
         {
             return View();
         }
@@ -38,10 +39,13 @@ namespace DecathlonWebshop.Controllers
                 return View(addUserViewModel);
             }
 
-            var user = new IdentityUser()
+            var user = new ApplicationUser()
             {
                 UserName = addUserViewModel.UserName,
                 Email = addUserViewModel.Email,
+                Birthdate = addUserViewModel.Birthdate,
+                City = addUserViewModel.City,
+                Country = addUserViewModel.Country
             };
 
             IdentityResult result= await _userManager.CreateAsync(user,addUserViewModel.Password);
@@ -65,18 +69,22 @@ namespace DecathlonWebshop.Controllers
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
 
-            return View(user);
+            var viewModel = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, Birthdate = user.Birthdate, City = user.City, Country = user.Country };
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(string id, string userName, string email)
+        public async Task<IActionResult> EditUser(EditUserViewModel editUserViewModel)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(editUserViewModel.Id);
 
             if (user != null)
             {
-                user.Email = email;
-                user.UserName = userName;
+                user.Email = editUserViewModel.Email;
+                user.UserName = editUserViewModel.UserName;
+                user.Birthdate = editUserViewModel.Birthdate;
+                user.City = editUserViewModel.City;
+                user.Country = editUserViewModel.Country;
 
                 var result = await _userManager.UpdateAsync(user);
 
@@ -85,7 +93,7 @@ namespace DecathlonWebshop.Controllers
 
                 ModelState.AddModelError("", "User not updated, something went wrong.");
 
-                return View(user);
+                return View(editUserViewModel);
             }
 
             return RedirectToAction("UserManagement", _userManager.Users);
@@ -94,7 +102,7 @@ namespace DecathlonWebshop.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string userId)
         {
-            IdentityUser user = await _userManager.FindByIdAsync(userId);
+            ApplicationUser user = await _userManager.FindByIdAsync(userId);
 
             if (user != null)
             {
