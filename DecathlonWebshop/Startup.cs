@@ -32,7 +32,7 @@ namespace DecathlonWebshop
             services.AddDbContextPool<AppDbContext>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options =>
+            services.AddIdentity<ApplicationUser,IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric=true;
