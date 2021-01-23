@@ -11,6 +11,10 @@ namespace DecathlonWebshop.Contracts
         IEnumerable<Product> AllProducts { get; }
         IEnumerable<Product> ProductsOfTheWeek { get; }
         Product GetProductById(int id);
+        void CreateProduct(Product product);
+
+        void UpdateProduct(Product product);
+        void DeleteProduct(Product product);
 
     }
 }

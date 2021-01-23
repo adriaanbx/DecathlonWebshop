@@ -48,6 +48,12 @@ namespace DecathlonWebshop
             services.AddHttpContextAccessor();
             services.AddSession();
 
+            services.AddAuthorization(Options =>
+            {
+                Options.AddPolicy("DeleteProduct", policy => policy.RequireClaim("Delete Product", "Delete Product"));
+                Options.AddPolicy("AddProduct", policy => policy.RequireClaim("Add Product", "Add Product"));
+            });
+
             services.AddControllersWithViews();
 
             services.AddRazorPages();

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Product>
+
+<h2>Product Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No products at this point :()</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Product ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>In stock</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td><img src="@product.ImageThumbnailUrl" /></td>
+                <td>@product.Name</td>
+                <td><input type="checkbox" asp-for="@product.InStock" />
+                <td>@product.Price</td>
+                <td>
+                    <form asp-action="DeleteProduct" asp-route-productId="@product.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditProduct" asp-route-productId="@product.Id">Edit</a>
+                        <button type="submit" onclick="return confirm('Do you really want to delete this product?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+<p>
+    <a class="btn btn-primary" asp-action="AddProduct">Add new product</a>
+</p>
+

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DecathlonWebshop.Controllers
@@ -72,7 +73,9 @@ namespace DecathlonWebshop.Controllers
             if (user == null)
                 return RedirectToAction("UserManagement", _userManager.Users);
 
-            var viewModel = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, Birthdate = user.Birthdate, City = user.City, Country = user.Country };
+            var userClaims = await _userManager.GetClaimsAsync(user);
+
+            var viewModel = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, Birthdate = user.Birthdate, City = user.City, Country = user.Country, UserClaims = userClaims.Select(c => c.Value).ToList() };
             return View(viewModel);
         }
 
@@ -306,5 +309,49 @@ namespace DecathlonWebshop.Controllers
             return View(userRoleViewModel);
         }
         #endregion
+
+        #region ClaimsManagement
+        public async Task<IActionResult> ManageClaimsForUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return RedirectToAction("UserManagement", _userManager.Users);
+
+            var claimsManagementViewModel = new ClaimsManagementViewModel { UserId = user.Id, AllClaimsList = DecathlonWebshopClaimTypes.ClaimsList };
+
+            return View(claimsManagementViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageClaimsForUser(ClaimsManagementViewModel claimsManagementViewModel)
+        {
+            var user = await _userManager.FindByIdAsync(claimsManagementViewModel.UserId);
+
+            if (user == null)
+                return RedirectToAction("UserManagement", _userManager.Users);
+
+            Claim claim = new Claim(claimsManagementViewModel.ClaimId, claimsManagementViewModel.ClaimId);
+
+            var resultClaim = await _userManager.AddClaimAsync(user, claim);
+
+            if (resultClaim.Succeeded)
+            {
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                    return RedirectToAction("UserManagement", _userManager.Users);
+
+                ModelState.AddModelError("", "User not updated, something went wrong.");
+            }
+            else
+            {
+                ModelState.AddModelError("", "The claim was not added to the user");
+            }
+
+            return View(claimsManagementViewModel);
+        }
     }
+    #endregion
 }
+

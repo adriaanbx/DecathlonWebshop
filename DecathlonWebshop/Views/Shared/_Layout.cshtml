@@ -37,6 +37,10 @@
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
                         {
                             @await Component.InvokeAsync("AdminMenu")
+                            <li class="dropdown">
+                                <a asp-controller="ProductManagement"
+                                   asp-action="Index">Product Management</a>
+                            </li>
                         }
                         <partial name="_LoginPartial" />
                     </ul>

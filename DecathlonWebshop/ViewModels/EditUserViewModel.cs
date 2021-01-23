@@ -33,5 +33,7 @@ namespace DecathlonWebshop.ViewModels
         public string City { get; set; }
         public string Country { get; set; }
 
+        public List<string> UserClaims { get; set; }
+
     }
 }
