@@ -32,15 +32,18 @@ namespace DecathlonWebshop
             services.AddDbContextPool<AppDbContext>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser,IdentityRole>(options =>
-            {
-                options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric=true;
-                options.Password.RequireUppercase=true;
-                options.User.RequireUniqueEmail = true;
-            })
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+             {
+                 options.Password.RequiredLength = 8;
+                 options.Password.RequireNonAlphanumeric = true;
+                 options.Password.RequireUppercase = true;
+                 options.User.RequireUniqueEmail = true;
+             })
+            .AddDefaultTokenProviders()
+            .AddDefaultUI()
             .AddEntityFrameworkStores<AppDbContext>();
 
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>,AppClaimsPrincipalFactory>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -50,8 +53,9 @@ namespace DecathlonWebshop
 
             services.AddAuthorization(Options =>
             {
-                Options.AddPolicy("DeleteProduct", policy => policy.RequireClaim("Delete Product", "Delete Product"));
-                Options.AddPolicy("AddProduct", policy => policy.RequireClaim("Add Product", "Add Product"));
+                Options.AddPolicy("DeleteProduct", policy => policy.RequireClaim("Delete Product", "Delete Product")); //Claims-based authorization
+                Options.AddPolicy("AddProduct", policy => policy.RequireClaim("Add Product", "Add Product")); //Claims-based authorization
+                Options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18))); //Policy-based authorization
             });
 
             services.AddControllersWithViews();

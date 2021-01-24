@@ -25,6 +25,7 @@ namespace DecathlonWebshop.Controllers
             return View();
         }
 
+        [Authorize(Policy ="MinimumOrderAge")]
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
