@@ -51,6 +51,12 @@ namespace DecathlonWebshop
             services.AddHttpContextAccessor();
             services.AddSession();
 
+            services.AddAuthentication().AddGoogle(o =>
+            {
+                o.ClientId = Configuration["Authentication:Google:ClientId"];
+                o.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            });
+
             services.AddAuthorization(Options =>
             {
                 Options.AddPolicy("DeleteProduct", policy => policy.RequireClaim("Delete Product", "Delete Product")); //Claims-based authorization
