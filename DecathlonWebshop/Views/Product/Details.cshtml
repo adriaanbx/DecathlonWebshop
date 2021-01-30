@@ -1,23 +1,55 @@
-﻿@model Product
+﻿@model ProductDetailViewModel
 
-<h2>@Model.Name</h2>
+<h2>@Model.Product.Name</h2>
 
 <div class="thumbnail">
-    <img alt="@Model.Name" src="@Model.ImageUrl">
+    <img alt="@Model.Product.Name" src="@Model.Product.ImageUrl">
     <div class="caption-full">
-        <h3 class="pull-right">@Model.Price</h3>
+        <h3 class="pull-right">@Model.Product.Price</h3>
         <h3>
-            <a href="#">@Model.Name</a>
+            <a href="#">@Model.Product.Name</a>
         </h3>
-        <h4>@Model.ShortDescription</h4>
-        <p>@Model.LongDescription</p>
+        <h4>@Model.Product.ShortDescription</h4>
+        <p>@Model.Product.LongDescription</p>
     </div>
     <div class="addToCart">
         <p class="button">
             <a class="btn-primary"
                asp-controller="ShoppingCart"
                asp-action="AddToShoppingCart"
-               asp-route-productId="@Model.Id">Add to cart</a>
+               asp-route-productId="@Model.Product.Id">Add to cart</a>
         </p>
     </div>
 </div>
+
+<h3>Product Reviews</h3>
+
+
+    @foreach (var review in Model.Product.Reviews)
+    {
+        @review.Review
+        <hr />
+    }
+
+
+<form asp-controller="Product" asp-action="Details" method="post" class="form-horizontal" role="form">
+    <h4>Write a review</h4>
+    <hr />
+    <input type="hidden" asp-for="@Model.Product.Id" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Review" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Review" class="form-control" />
+            <span asp-validation-for="Review" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Send review" />
+        </div>
+    </div>
+
+</form>

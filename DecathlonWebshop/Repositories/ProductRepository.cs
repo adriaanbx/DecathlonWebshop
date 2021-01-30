@@ -23,7 +23,7 @@ namespace DecathlonWebshop.Repositories
                 
         public Product GetProductById(int id)
         {
-           return _appDbContext.Products.FirstOrDefault(p => p.Id == id);
+           return _appDbContext.Products.Include(p=>p.Reviews).FirstOrDefault(p => p.Id == id);
         }
 
         public void CreateProduct(Product product)

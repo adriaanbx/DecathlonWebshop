@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecathlonWebshop.Contracts
 {
+    //TODO Repository async maken
     public interface IProductRepository
     {
         IEnumerable<Product> AllProducts { get; }
