@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using DecathlonWebshop.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DecathlonWebshop.Models
 {
@@ -12,6 +13,8 @@ namespace DecathlonWebshop.Models
     {
         public int Id { get; set; }
         [Required]
+       // [Remote("CheckIfProductNameAlreadyExists","ProductManagement",ErrorMessage ="This product name already exists")]
+        [Remote("CheckIfProductNameAlreadyExists", "ProductManagement")]
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }

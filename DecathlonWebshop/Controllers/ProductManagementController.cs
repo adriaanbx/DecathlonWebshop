@@ -100,7 +100,15 @@ namespace DecathlonWebshop.Controllers
             var product = _productRepository.AllProducts.FirstOrDefault(p => p.Id == productId);
             _productRepository.DeleteProduct(product);
 
-           return RedirectToAction("Index");
+            return RedirectToAction("Index");
+        }
+
+        //Remote Validation
+        //[AcceptVerbs "Get","Post"]
+        public IActionResult CheckIfProductNameAlreadyExists([Bind(Prefix = "Product.Name")] string name)
+        {
+           var product = _productRepository.AllProducts.FirstOrDefault(p => name.Equals(p.Name));
+            return product == null ? Json(true) : Json("This product name is already taken");
         }
     }
 }
