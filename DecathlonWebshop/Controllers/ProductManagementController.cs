@@ -3,6 +3,7 @@ using DecathlonWebshop.Models;
 using DecathlonWebshop.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,13 @@ namespace DecathlonWebshop.Controllers
         [HttpPost]
         public IActionResult AddProduct(ProductEditViewModel productEditViewModel)
         {
+            //custom validation rules
+            if (ModelState.GetValidationState("Product.Price") == ModelValidationState.Valid && productEditViewModel.Product.Price < 0)
+                ModelState.AddModelError(nameof(productEditViewModel.Product.Price), "The price must be higher than 0");
+
+            if (productEditViewModel.Product.IsProductOfTheWeek && !productEditViewModel.Product.InStock)
+                ModelState.AddModelError(nameof(productEditViewModel.Product.IsProductOfTheWeek), "Only products in stock can be a product of the week");
+
             //Basic validation
             if (ModelState.IsValid)
             {
