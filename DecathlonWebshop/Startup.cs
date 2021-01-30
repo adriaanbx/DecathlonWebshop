@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -64,6 +67,31 @@ namespace DecathlonWebshop
             services.AddMvc(options =>
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
+            //services.AddAntiforgery();  
+
+            //Add controller localization
+            services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+
+            //Add view localization
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix,
+                options => { options.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("fr"),
+                        new CultureInfo("nl"),
+                        new CultureInfo("en-US"),
+                    };
+
+                    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
+
             services.AddAuthorization(Options =>
             {
                 Options.AddPolicy("DeleteProduct", policy => policy.RequireClaim("Delete Product", "Delete Product")); //Claims-based authorization
@@ -96,6 +124,9 @@ namespace DecathlonWebshop
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            //Check the culture of the incoming request for the translations
+            app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.UseEndpoints(endpoints =>
             {
