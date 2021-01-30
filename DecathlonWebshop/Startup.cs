@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +44,7 @@ namespace DecathlonWebshop
             .AddDefaultUI()
             .AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>,AppClaimsPrincipalFactory>();
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -58,6 +59,11 @@ namespace DecathlonWebshop
                 o.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
 
+            //add anti forgery, against CSRF = Cross Site Request Forgery, as a global filter
+            //will automatically include antiforgeryvalidation on all potentially unsafe requests like a post and a put
+            services.AddMvc(options =>
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
             services.AddAuthorization(Options =>
             {
                 Options.AddPolicy("DeleteProduct", policy => policy.RequireClaim("Delete Product", "Delete Product")); //Claims-based authorization
@@ -66,7 +72,7 @@ namespace DecathlonWebshop
             });
 
             services.AddControllersWithViews();
-                       
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,7 +101,7 @@ namespace DecathlonWebshop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");                
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
