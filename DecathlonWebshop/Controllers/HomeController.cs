@@ -29,7 +29,7 @@ namespace DecathlonWebshop.Controllers
 
         public IActionResult Index()
         {
-            ViewData["PageTitle"] = _stringLocalizer["Welcome to Decathlon"];
+            ViewBag.PageTitle = _stringLocalizer["TXT_PageTitle"];
             var homeViewModel = new HomeViewModel
             {
                 ProductsOfTheWeek = _productRepository.ProductsOfTheWeek
@@ -50,7 +50,8 @@ namespace DecathlonWebshop.Controllers
 
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
-            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );

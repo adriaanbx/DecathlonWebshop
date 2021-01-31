@@ -12,7 +12,7 @@ namespace DecathlonWebshop.Models
     public class Product
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The name is required")]
        // [Remote("CheckIfProductNameAlreadyExists","ProductManagement",ErrorMessage ="This product name already exists")]
         [Remote("CheckIfProductNameAlreadyExists", "ProductManagement")]
         public string Name { get; set; }
@@ -20,6 +20,8 @@ namespace DecathlonWebshop.Models
         public string LongDescription { get; set; }
         public char Sex { get; set; }
         public decimal Price { get; set; }
+        //TODO hoe custom made validate messages vertalen?
+        //In ASP.NET Core MVC 1.1.0 and higher, non-validation attributes are localized. ASP.NET Core MVC 1.0 does not look up localized strings for non-validation attributes.
         [ValidUrl(ErrorMessage ="Please fill in a correct URL")]
         public string ImageUrl { get; set; }
         [ValidUrl(ErrorMessage = "Please fill in a correct URL")]

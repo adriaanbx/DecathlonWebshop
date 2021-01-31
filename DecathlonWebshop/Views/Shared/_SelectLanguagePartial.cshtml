@@ -8,7 +8,7 @@
 
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>(); //what culture was used when receiving request
-    //list up the supported culures
+    //list up the supported cultures
     var cultureItems = ReqLocOptions.Value.SupportedUICultures
         .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
         .ToList();
@@ -17,7 +17,7 @@
 <div >
     <form id="selectLanguage" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path"
           method="post" class="form-horizontal" role="form">
-        @Localizer["Language:"] <select name="culture" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
-        <button type="submit" class="btn btn-default btn-xs">GO</button>
+        @Localizer["Language:"] <select onchange="this.form.submit();" name="culture" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
+        @*<button type="submit" class="btn btn-default btn-xs">@Localizer["Choose"]</button>*@
     </form>
 </div>  

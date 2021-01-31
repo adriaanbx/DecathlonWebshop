@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,25 @@ namespace DecathlonWebshop.Components
 {
     public class AdminMenu:ViewComponent
     {
+        private readonly IStringLocalizer<AdminMenu> _stringLocalizer;
+
+        public AdminMenu(IStringLocalizer<AdminMenu> stringLocalizer)
+        {
+            _stringLocalizer = stringLocalizer;
+        }
+
         public IViewComponentResult Invoke()
         {
             var menuItems = new List<AdminMenuItem> { new AdminMenuItem()
                 {
-                    DisplayValue = "User management",
+                //TODO asp vindt resx file niet op locatie "DecathlonWebshop.Resources.Components.AdminMenu"
+                    DisplayValue = _stringLocalizer["TXT_UserManagement"],
                     ActionValue = "UserManagement"
 
                 },
                 new AdminMenuItem()
                 {
-                    DisplayValue = "Role management",
+                    DisplayValue = _stringLocalizer["TXT_RoleManagement"],
                     ActionValue = "RoleManagement"
                 }};
 

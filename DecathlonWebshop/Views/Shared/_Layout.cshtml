@@ -2,17 +2,16 @@
 @using Microsoft.AspNetCore.Identity;
 
 @inject SignInManager<ApplicationUser> SignInManager
+@inject IViewLocalizer Localizer
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.PageTitle</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-
-    <title>@ViewBag.PageTitle</title>
 
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
@@ -38,7 +37,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Home" asp-action="Index">@Localizer["TXT_Home"]</a></li>
                         @await Component.InvokeAsync("CategoryMenu")
                         <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
                         @await Component.InvokeAsync("ShoppingCartSummary")
@@ -47,7 +46,7 @@
                             @await Component.InvokeAsync("AdminMenu")
                             <li class="dropdown">
                                 <a asp-controller="ProductManagement"
-                                   asp-action="Index">Product Management</a>
+                                   asp-action="Index">@Localizer["TXT_ProductManagement"]</a>
                             </li>
                         }
                         <partial name="_LoginPartial" />
@@ -65,7 +64,18 @@
             <div class="col-md-9">
                 @RenderBody()
             </div>
-            @await Html.PartialAsync("LanguageSelection")
+            <hr>
+            <footer>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; @System.DateTime.Now.Year - Localization</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        @await Html.PartialAsync("_SelectLanguagePartial")
+                    </div>
+                </div>
+            </footer>
+            @*@await Html.PartialAsync("LanguageSelection")*@
         </div>
     </div>
     @RenderSection("scripts", required: false);

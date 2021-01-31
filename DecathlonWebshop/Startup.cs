@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -64,33 +66,12 @@ namespace DecathlonWebshop
 
             //add anti forgery, against CSRF = Cross Site Request Forgery, as a global filter
             //will automatically include antiforgeryvalidation on all potentially unsafe requests like a post and a put
-            services.AddMvc(options =>
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
-            //services.AddAntiforgery();  
+            services.AddAntiforgery();
 
-            //Add controller localization
-            services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+            //services.AddMvc(options =>
+            //    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
-            //Add view localization
-            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix,
-                options => { options.ResourcesPath = "Resources"; })
-                .AddDataAnnotationsLocalization();
-
-            services.Configure<RequestLocalizationOptions>(
-                options =>
-                {
-                    var supportedCultures = new List<CultureInfo>
-                    {
-                        new CultureInfo("fr"),
-                        new CultureInfo("nl"),
-                        new CultureInfo("en-US"),
-                    };
-
-                    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US");
-                    options.SupportedCultures = supportedCultures;
-                    options.SupportedUICultures = supportedCultures;
-                });
 
             services.AddAuthorization(Options =>
             {
@@ -99,7 +80,26 @@ namespace DecathlonWebshop
                 Options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18))); //Policy-based authorization
             });
 
-            services.AddControllersWithViews();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddControllersWithViews()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization(); //ErrorMessages of validation annotations can be translated aswell
+
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("fr"),
+                        new CultureInfo("nl"),
+                        new CultureInfo("en"),
+                    };
+
+                    options.DefaultRequestCulture = new RequestCulture(new CultureInfo("en"));
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
 
         }
 
@@ -127,6 +127,7 @@ namespace DecathlonWebshop
 
             //Check the culture of the incoming request for the translations
             app.UseRequestLocalization(app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value);
+
 
             app.UseEndpoints(endpoints =>
             {
