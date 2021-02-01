@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -86,6 +87,11 @@ namespace DecathlonWebshop
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization(); //ErrorMessages of validation annotations can be translated aswell
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DecathlonWebshop API", Version = "v1" });
+            });
+
             services.Configure<RequestLocalizationOptions>(
                 options =>
                 {
@@ -116,6 +122,11 @@ namespace DecathlonWebshop
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // open for public otherwise put in Development statement
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DecathlonWebshop API v1"));
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
@@ -131,6 +142,10 @@ namespace DecathlonWebshop
 
             app.UseEndpoints(endpoints =>
             {
+                //use controller route attributes for api
+                endpoints.MapControllers();
+
+                //use pattern for webapplication
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -6,6 +6,7 @@ using DecathlonWebshop.Utilities;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace DecathlonWebshop.Models
 {
@@ -28,6 +29,8 @@ namespace DecathlonWebshop.Models
         public string ImageThumbnailUrl { get; set; }
         public bool IsProductOfTheWeek { get; set; }
         public bool InStock { get; set; }
+
+        [JsonIgnore]
         public List<ProductReview> Reviews { get; set; }
 
         public int CategoryId { get; set; }
