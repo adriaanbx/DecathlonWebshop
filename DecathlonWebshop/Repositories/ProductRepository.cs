@@ -17,31 +17,39 @@ namespace DecathlonWebshop.Repositories
             _appDbContext = appDbContext;
         }
 
-        public IEnumerable<Product> AllProducts => _appDbContext.Products.Include(c=>c.Category);
+        public async Task<IEnumerable<Product>> GetProductsAsync() => await _appDbContext.Products.Include(c => c.Category).ToListAsync();
 
-        public IEnumerable<Product> ProductsOfTheWeek => _appDbContext.Products.Include(c=>c.Category).Where(p => p.IsProductOfTheWeek);
-                
-        public Product GetProductById(int id)
+        public async Task<IEnumerable<Product>> GetProductsOfTheWeekAsync() => await _appDbContext.Products.Include(c => c.Category).Where(p => p.IsProductOfTheWeek).ToListAsync();
+
+        public async Task<Product> GetProductByIdAsync(int id) => await _appDbContext.Products.Include(p => p.Reviews).Include(c=>c.Category).FirstOrDefaultAsync(p => p.Id == id);
+
+        public async Task CreateProductAsync(Product product)
         {
-           return _appDbContext.Products.Include(p=>p.Reviews).FirstOrDefault(p => p.Id == id);
+           _appDbContext.Products.Add(product);
+           await _appDbContext.SaveChangesAsync();
+
+            //TODO
+            // Detach the product,to be able to update it afterwards, to avoid
+            // The instance of entity type cannot be tracked because another instance with the same key value for {'...'} is already being tracked
+            //_appDbContext.Entry(product).State = EntityState.Detached;
         }
 
-        public void CreateProduct(Product product)
-        {
-            _appDbContext.Products.Add(product);
-            _appDbContext.SaveChanges();
-        }
-
-        public void UpdateProduct(Product product)
+        public async Task UpdateProductAsync(Product product)
         {
             _appDbContext.Products.Update(product);
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
+
         }
 
-        public void DeleteProduct(Product product)
+        public async Task DeleteProductAsync(Product product)
         {
             _appDbContext.Products.Remove(product);
-            _appDbContext.SaveChanges();
+           await _appDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Product> GetProductByNameAsync(string productName)
+        {
+           return  await _appDbContext.Products.FirstOrDefaultAsync(p => p.Name == productName);
         }
     }
 }

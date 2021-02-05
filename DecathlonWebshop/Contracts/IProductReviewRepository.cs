@@ -8,7 +8,7 @@ namespace DecathlonWebshop.Contracts
 {
     public interface IProductReviewRepository
     {
-        Task<Task> AddProductReviewAsync(ProductReview productReview);
-        IEnumerable<ProductReview> GetProductReviews(int productId);
+        Task AddProductReviewAsync(ProductReview productReview);
+        Task<IEnumerable<ProductReview>> GetProductReviewsAsync(int productId);
     }
 }

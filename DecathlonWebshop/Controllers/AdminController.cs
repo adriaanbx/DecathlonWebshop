@@ -176,7 +176,7 @@ namespace DecathlonWebshop.Controllers
                 Users = new List<string>()
             };
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
                 //TODO InvalidOperationException: There is already an open DataReader associated with this Connection which must be closed first.
                 if (await _userManager.IsInRoleAsync(user, role.Name))
@@ -237,7 +237,7 @@ namespace DecathlonWebshop.Controllers
 
             var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
 
-            foreach (var user in _userManager.Users)
+            foreach (var user in _userManager.Users.ToList())
             {
                 if (!await _userManager.IsInRoleAsync(user, role.Name))
                 {

@@ -35,9 +35,9 @@ namespace DecathlonWebshop.Controllers
             return View(shoppingCartViewModel);
         }
 
-        public RedirectToActionResult AddToShoppingCart(int productId)
+        public async Task<RedirectToActionResult> AddToShoppingCart(int productId)
         {
-            var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.Id == productId);
+            var selectedProduct = await _productRepository.GetProductByIdAsync(productId);
 
             if (selectedProduct != null)
             {
@@ -46,9 +46,9 @@ namespace DecathlonWebshop.Controllers
             return RedirectToAction("Index");
         }
 
-        public RedirectToActionResult RemoveFromShoppingCart(int productId)
+        public async Task<RedirectToActionResult> RemoveFromShoppingCart(int productId)
         {
-            var selectedProduct = _productRepository.AllProducts.FirstOrDefault(p => p.Id == productId);
+            var selectedProduct = await _productRepository.GetProductByIdAsync(productId);
 
             if (selectedProduct != null)
             {

@@ -26,33 +26,34 @@ namespace DecathlonWebshop.Controllers
         }
 
 
-        public ViewResult List(string category)
+        public async Task<ViewResult> List(string category)
         {
-            IEnumerable<Product> product;
+            IEnumerable<Product> products;
             string currentCategory;
 
             if (string.IsNullOrEmpty(category))
             {
-                product = _productRepository.AllProducts.OrderBy(p => p.Id);
+                products = await _productRepository.GetProductsAsync();
+                products =  products.OrderBy(p => p.Id);
                 currentCategory = "All products";
             }
             else
             {
-                product = _productRepository.AllProducts.Where(p => p.Category.Name == category)
-                    .OrderBy(p => p.Id);
+                products = await _productRepository.GetProductsAsync();
+                products = products.Where(p => p.Category.Name == category).OrderBy(p => p.Id);
                 currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.Name == category)?.Name;
             }
 
             return View(new ProductsListViewModel
             {
-                Products = product,
+                Products = products,
                 CurrentCategory = currentCategory
             });
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = await _productRepository.GetProductByIdAsync(id);
             if (product is null)
                 return NotFound();
 
@@ -60,10 +61,9 @@ namespace DecathlonWebshop.Controllers
         }
 
         [HttpPost]
-        //TODO hoe komt het dat dit werkt? je verwacht als return type een Task<IActionResult> en je geeft een ViewResult terug zonder task?
         public async Task<IActionResult> Details(int id, string review)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = await _productRepository.GetProductByIdAsync(id);
             if (product is null)
                 return NotFound();
 
