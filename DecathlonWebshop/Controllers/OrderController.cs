@@ -2,6 +2,7 @@
 using DecathlonWebshop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace DecathlonWebshop.Controllers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ShoppingCart _shoppingCart;
+        private readonly IStringLocalizer<OrderController> _stringLocalizer;
 
-        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart)
+        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart, IStringLocalizer<OrderController> stringLocalizer)
         {
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
+            _stringLocalizer = stringLocalizer;
         }
         public IActionResult CheckOut()
         {
@@ -48,7 +51,7 @@ namespace DecathlonWebshop.Controllers
 
         public IActionResult CheckoutComplete()
         {
-            ViewBag.CheckoutCompleteMessage = "Thanks for your order. You'll soon enjoy our delicious pies!";
+            ViewBag.CheckoutCompleteMessage = _stringLocalizer["TXT_Title"];
             return View();
         }
     }

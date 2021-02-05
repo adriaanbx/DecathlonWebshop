@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace DecathlonWebshop.Contracts
 {
-    //TODO Repository async maken
     public interface IProductRepository
     {
-        IEnumerable<Product> AllProducts { get; }
-        IEnumerable<Product> ProductsOfTheWeek { get; }
-        Product GetProductById(int id);
-        void CreateProduct(Product product);
+        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<IEnumerable<Product>> GetProductsOfTheWeekAsync();
+        Task<Product> GetProductByIdAsync(int id);
+        Task<Product> GetProductByNameAsync(string productName);
+        Task CreateProductAsync(Product product);
 
-        void UpdateProduct(Product product);
-        void DeleteProduct(Product product);
+        Task UpdateProductAsync(Product product);
+        Task DeleteProductAsync(Product product);
 
     }
 }

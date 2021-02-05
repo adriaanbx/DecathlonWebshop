@@ -27,12 +27,13 @@ namespace DecathlonWebshop.Controllers
             _stringLocalizer = stringLocalizer;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewBag.PageTitle = _stringLocalizer["TXT_PageTitle"];
+                        
             var homeViewModel = new HomeViewModel
             {
-                ProductsOfTheWeek = _productRepository.ProductsOfTheWeek
+                ProductsOfTheWeek = await _productRepository.GetProductsOfTheWeekAsync()
             };
             return View(homeViewModel);
         }

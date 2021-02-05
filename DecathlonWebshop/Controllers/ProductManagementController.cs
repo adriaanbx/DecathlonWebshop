@@ -25,9 +25,10 @@ namespace DecathlonWebshop.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public ViewResult Index()
+        public async Task<ViewResult> Index()
         {
-            var product = _productRepository.AllProducts.OrderBy(p => p.Id);
+            var product = await _productRepository.GetProductsAsync();
+            product.OrderBy(p => p.Id);
             return View(product);
         }
 
@@ -43,7 +44,7 @@ namespace DecathlonWebshop.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(ProductEditViewModel productEditViewModel)
+        public async Task<IActionResult> AddProduct(ProductEditViewModel productEditViewModel)
         {
             //custom validation rules
             if (ModelState.GetValidationState("Product.Price") == ModelValidationState.Valid && productEditViewModel.Product.Price < 0)
@@ -56,17 +57,17 @@ namespace DecathlonWebshop.Controllers
             if (ModelState.IsValid)
             {
                 productEditViewModel.Product.CategoryId = productEditViewModel.CategoryId;
-                _productRepository.CreateProduct(productEditViewModel.Product);
+                await _productRepository.CreateProductAsync(productEditViewModel.Product);
                 return RedirectToAction("Index");
             }
             return View(productEditViewModel);
         }
 
-        public IActionResult EditProduct(int productId)
+        public async Task<IActionResult> EditProduct(int productId)
         {
             var categories = _categoryRepository.AllCategories;
 
-            var product = _productRepository.AllProducts.FirstOrDefault(p => p.Id == productId);
+            var product = await _productRepository.GetProductByIdAsync(productId);
 
             var productEditViewModel = new ProductEditViewModel
             {
@@ -82,32 +83,32 @@ namespace DecathlonWebshop.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditProduct(ProductEditViewModel productEditViewModel)
+        public async Task<IActionResult> EditProduct(ProductEditViewModel productEditViewModel)
         {
             productEditViewModel.Product.CategoryId = productEditViewModel.CategoryId;
 
             if (ModelState.IsValid)
             {
-                _productRepository.UpdateProduct(productEditViewModel.Product);
+                await _productRepository.UpdateProductAsync(productEditViewModel.Product);
                 return RedirectToAction("Index");
             }
             return View(productEditViewModel);
         }
 
         [HttpPost]
-        public IActionResult DeleteProduct(int productId)
+        public async Task<IActionResult> DeleteProduct(int productId)
         {
-            var product = _productRepository.AllProducts.FirstOrDefault(p => p.Id == productId);
-            _productRepository.DeleteProduct(product);
+            var product = await _productRepository.GetProductByIdAsync(productId);
+            await _productRepository.DeleteProductAsync(product);
 
             return RedirectToAction("Index");
         }
 
         //Remote Validation
         //[AcceptVerbs "Get","Post"]
-        public IActionResult CheckIfProductNameAlreadyExists([Bind(Prefix = "Product.Name")] string name)
+        public async Task<IActionResult> CheckIfProductNameAlreadyExists([Bind(Prefix = "Product.Name")] string name)
         {
-           var product = _productRepository.AllProducts.FirstOrDefault(p => name.Equals(p.Name));
+            var product = await _productRepository.GetProductByNameAsync(name);
             return product == null ? Json(true) : Json("This product name is already taken");
         }
     }
