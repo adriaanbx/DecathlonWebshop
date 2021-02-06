@@ -39,7 +39,7 @@ namespace DecathlonWebshop.Controllers
 
             var user = await _userManager.FindByNameAsync(loginViewModel.UserName);
 
-            if (user != null)
+            if (user != null && user.IsEnabled)
             {
                 var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
                 if (result.Succeeded)
@@ -50,8 +50,12 @@ namespace DecathlonWebshop.Controllers
                     return Redirect(loginViewModel.ReturnUrl);
                 }
             }
-
-            ModelState.AddModelError("", "Username/password not found");
+            if (user != null)
+                ModelState.AddModelError("", "User is locked, please contact an administrator for more information");
+            else
+            {
+                ModelState.AddModelError("", "Username/password not found");
+            }
             return View(loginViewModel);
         }
 
@@ -68,7 +72,7 @@ namespace DecathlonWebshop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = registerViewModel.UserName, Email = registerViewModel.Email};
+                var user = new ApplicationUser() { UserName = registerViewModel.UserName, Email = registerViewModel.Email, IsEnabled = true };
                 var result = await _userManager.CreateAsync(user, registerViewModel.Password);
 
                 if (result.Succeeded)
@@ -78,7 +82,7 @@ namespace DecathlonWebshop.Controllers
 
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("error",error.Description);
+                    ModelState.AddModelError("error", error.Description);
                 }
             }
             return View(registerViewModel);
@@ -102,7 +106,7 @@ namespace DecathlonWebshop.Controllers
         {
             var redirectUrl = Url.Action("ExternalLoginCallback", "Account");
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return new ChallengeResult(provider,properties);
+            return new ChallengeResult(provider, properties);
         }
 
         [AllowAnonymous]
