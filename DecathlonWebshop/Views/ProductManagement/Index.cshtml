@@ -1,21 +1,22 @@
 ﻿@model IEnumerable<Product>
+@inject IViewLocalizer Localizer
 
-<h2>Product Management</h2>
+<h2>@Localizer["TXT_Title"]</h2>
 
 @if (!Model.Any())
 {
-    <tr><td colspan="3" class="text-center">No products at this point :()</td></tr>
+    <tr><td colspan="3" class="text-center">@Localizer["TXT_NoProducts"]</td></tr>
 }
 else
 {
     <table class="table table-condensed table-bordered">
         <tr>
-            <th>Product ID</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>In stock</th>
-            <th>Price</th>
-            <th>Actions</th>
+            <th>@Localizer["TXT_ProductId"]</th>
+            <th>@Localizer["TXT_Image"]</th>
+            <th>@Localizer["TXT_Name"]</th>
+            <th>@Localizer["TXT_InStock"]</th>
+            <th>@Localizer["TXT_Price"]</th>
+            <th>@Localizer["TXT_Actions"]</th>
         </tr>
         @foreach (var product in Model)
         {
@@ -27,9 +28,9 @@ else
                 <td>@product.Price</td>
                 <td>
                     <form asp-action="DeleteProduct" asp-route-productId="@product.Id" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="EditProduct" asp-route-productId="@product.Id">Edit</a>
-                        <button type="submit" onclick="return confirm('Do you really want to delete this product?');" class="btn btn-sm btn-danger">
-                            Delete
+                        <a class="btn btn-sm btn-primary" asp-action="EditProduct" asp-route-productId="@product.Id">@Localizer["TXT_Edit"]</a>
+                        <button type="submit" onclick="return confirm('@Localizer["TXT_Confirmation"] @product.Name');" class="btn btn-sm btn-danger">
+                            @Localizer["TXT_Delete"]
                         </button>
                     </form>
                 </td>
@@ -38,6 +39,6 @@ else
     </table>
 }
 <p>
-    <a class="btn btn-primary" asp-action="AddProduct">Add new product</a>
+    <a class="btn btn-primary" asp-action="AddProduct"> @Localizer["TXT_AddNewProduct"]</a>
 </p>
 

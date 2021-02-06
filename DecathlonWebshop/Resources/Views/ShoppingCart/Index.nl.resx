@@ -135,4 +135,7 @@
   <data name="TXT_Total" xml:space="preserve">
     <value>Totaal</value>
   </data>
+  <data name="TXT_YourShoppingCart" xml:space="preserve">
+    <value>Uw Winkelwagen</value>
+  </data>
 </root>

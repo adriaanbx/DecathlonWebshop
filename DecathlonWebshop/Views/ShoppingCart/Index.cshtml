@@ -1,5 +1,12 @@
-﻿@model ShoppingCartViewModel
+﻿@using System.Globalization
+
+@model ShoppingCartViewModel
 @inject IViewLocalizer Localizer
+
+@{
+    //TODO culture opvragen geeft andere problemen (zie todo punt HomeController-Index), daarom hardcoded "nl-BE" genomen
+    var cultureInfo = new CultureInfo("nl-BE");
+}
 
 <h2>@Localizer["TXT_YourShoppingCart"]</h2>
 <table class="table table-bordered table-striped">
@@ -17,9 +24,9 @@
             <tr>
                 <td class="text-center">@line.Amount</td>
                 <td class="text-left">@line.Product.Name</td>
-                <td class="text-right">@line.Product.Price.ToString("c")</td>
+                <td class="text-right">@line.Product.Price.ToString("c",cultureInfo)</td>
                 <td class="text-right">
-                    @((line.Amount * line.Product.Price).ToString("c"))
+                    @((line.Amount * line.Product.Price).ToString("c",cultureInfo))
                 </td>
             </tr>
         }
@@ -28,7 +35,7 @@
         <tr>
             <td colspan="3" class="text-right">@Localizer["TXT_Total"]</td>
             <td class="text-right">
-                @Model.ShoppingCartTotal.ToString("c")
+                @Model.ShoppingCartTotal.ToString("c", cultureInfo)
             </td>
         </tr>
     </tfoot>
