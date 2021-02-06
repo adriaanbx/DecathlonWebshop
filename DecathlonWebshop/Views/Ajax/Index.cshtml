@@ -1,0 +1,20 @@
+﻿
+<h1>Geef alle producten terug zonder de pagina te refreshen</h1>
+
+<div id="products"></div>
+
+<button type="button" onclick="loadProducts()">Load products</button>
+
+<script>
+    async function loadProducts() {
+        
+        const response = await fetch('api/products');
+        const json = await response.json();
+
+
+        console.log(Array.from(json));
+        Array.from(json).forEach(function (product) {
+            document.getElementById('products').innerHTML += '<li>' + product.name + '<li>';
+        });
+    }
+</script>
