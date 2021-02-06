@@ -91,6 +91,7 @@ namespace DecathlonWebshop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();
@@ -150,6 +151,8 @@ namespace DecathlonWebshop.Controllers
 
             return Redirect(returnUrl);
         }
+
+
     }
 }
 

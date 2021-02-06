@@ -81,6 +81,11 @@ namespace DecathlonWebshop
                 Options.AddPolicy("MinimumOrderAge", policy => policy.Requirements.Add(new MinimumOrderAgeRequirement(18))); //Policy-based authorization
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/AccessDenied");
+            });
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddControllersWithViews()
