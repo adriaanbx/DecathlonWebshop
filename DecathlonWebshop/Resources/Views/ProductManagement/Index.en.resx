@@ -117,7 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TXT_Language" xml:space="preserve">
-    <value>Taal:</value>
+  <data name="TXT_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="TXT_AddNewProduct" xml:space="preserve">
+    <value>Add new product</value>
+  </data>
+  <data name="TXT_Confirmation" xml:space="preserve">
+    <value>Do you really want to delete this product?</value>
+  </data>
+  <data name="TXT_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="TXT_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="TXT_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="TXT_InStock" xml:space="preserve">
+    <value>In stock</value>
+  </data>
+  <data name="TXT_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TXT_NoProducts" xml:space="preserve">
+    <value>No products at this point :()</value>
+  </data>
+  <data name="TXT_Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="TXT_ProductId" xml:space="preserve">
+    <value>Product ID</value>
+  </data>
+  <data name="TXT_Title" xml:space="preserve">
+    <value>Product Management</value>
   </data>
 </root>

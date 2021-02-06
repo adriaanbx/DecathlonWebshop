@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TXT_Language" xml:space="preserve">
-    <value>Taal:</value>
+  <data name="TXT_Title" xml:space="preserve">
+    <value>Vous n'êtes qu'à un pas de vos délicieuses tartes</value>
   </data>
 </root>

@@ -117,7 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TXT_Language" xml:space="preserve">
-    <value>Taal:</value>
+  <data name="Address Line 1" xml:space="preserve">
+    <value>Adres Lijn 1</value>
+  </data>
+  <data name="Address Line 2" xml:space="preserve">
+    <value>Adres Lijn 2</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Stad</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="First name" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="Last name" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>Telefoonnummer</value>
+  </data>
+  <data name="Please enter your address" xml:space="preserve">
+    <value>Het adres moet ingevuld zijn </value>
+  </data>
+  <data name="Please enter your city" xml:space="preserve">
+    <value>De stad moet ingevuld zijn</value>
+  </data>
+  <data name="Please enter your country" xml:space="preserve">
+    <value>Het land moet ingevuld zijn</value>
+  </data>
+  <data name="Please enter your first name" xml:space="preserve">
+    <value>De voornaam moet ingevuld zijn</value>
+  </data>
+  <data name="Please enter your last name" xml:space="preserve">
+    <value>De naam moet ingevuld zijn</value>
+  </data>
+  <data name="Please enter your phone number" xml:space="preserve">
+    <value>Het telefoonnummer moet ingevuld zijn</value>
+  </data>
+  <data name="Please enter your zip code" xml:space="preserve">
+    <value>De postcode moet ingevuld zijn</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Provincie</value>
+  </data>
+  <data name="The email address is not entered in a correct format" xml:space="preserve">
+    <value>Het opgegeven email adres is geen correct formaat</value>
+  </data>
+  <data name="Zip code" xml:space="preserve">
+    <value>Postcode</value>
   </data>
 </root>

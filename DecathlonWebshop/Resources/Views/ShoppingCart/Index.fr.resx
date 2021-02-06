@@ -135,4 +135,7 @@
   <data name="TXT_Total" xml:space="preserve">
     <value>Totale</value>
   </data>
+  <data name="TXT_YourShoppingCart" xml:space="preserve">
+    <value>Votre Panier</value>
+  </data>
 </root>
