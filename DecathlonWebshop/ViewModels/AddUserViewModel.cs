@@ -18,6 +18,9 @@ namespace DecathlonWebshop.ViewModels
             ErrorMessage = "The email address is not entered in a correct format")]
         public string Email { get; set; }
 
+        [Display(Name = "Enable")]
+        public bool IsEnabled { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }

@@ -76,7 +76,8 @@ namespace DecathlonWebshop.Controllers
             //TODO werkt wel maar ik zou verwachten dat de claimsprincipal van de login hier ook verschijnt, of zijn het enkel de claims die niet toegewezen zijn aan een claimsprincipal?
             var userClaims = await _userManager.GetClaimsAsync(user);
 
-            var viewModel = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, Birthdate = user.Birthdate, City = user.City, Country = user.Country, UserClaims = userClaims.Select(c => c.Value).ToList() };
+            var viewModel = new EditUserViewModel() { Id = user.Id, Email = user.Email, UserName = user.UserName, 
+                IsEnabled = user.IsEnabled, Birthdate = user.Birthdate, City = user.City, Country = user.Country, UserClaims = userClaims.Select(c => c.Value).ToList() };
             return View(viewModel);
         }
 
@@ -88,6 +89,7 @@ namespace DecathlonWebshop.Controllers
             if (user != null)
             {
                 user.Email = editUserViewModel.Email;
+                user.IsEnabled = editUserViewModel.IsEnabled;
                 user.UserName = editUserViewModel.UserName;
                 user.Birthdate = editUserViewModel.Birthdate;
                 user.City = editUserViewModel.City;

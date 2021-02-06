@@ -237,7 +237,8 @@ namespace DecathlonWebshop.Models
                 AccessFailedCount = 0,
                 Birthdate = DateTime.MinValue,
                 City = null,
-                Country = null
+                Country = null,
+                IsEnabled = true
             });
 
             //IdentityRole
