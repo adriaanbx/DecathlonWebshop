@@ -4,14 +4,16 @@ using DecathlonWebshop.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DecathlonWebshop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210206001117_RolesFetched")]
+    partial class RolesFetched
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -574,22 +576,6 @@ namespace DecathlonWebshop.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClaimType = "Delete Product",
-                            ClaimValue = "Delete Product",
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ClaimType = "Add Product",
-                            ClaimValue = "Add Product",
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>

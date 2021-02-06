@@ -4,14 +4,16 @@ using DecathlonWebshop.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DecathlonWebshop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210205234606_AdminUserAdded")]
+    partial class AdminUserAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,7 +97,7 @@ namespace DecathlonWebshop.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "09036a82-6e96-4c74-b521-760131a784aa",
+                            Id = "09036a82 - 6e96 - 4c74 - b521 - 760131a784aa",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ConcurrencyStamp = "4ce14a80-bb0d-4167-8b27-b0ebedb497e8",
@@ -510,22 +512,6 @@ namespace DecathlonWebshop.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "980496f5-b4f2-4975-8e7f-cec5d2e001ab",
-                            ConcurrencyStamp = "fb8ec3dd-6d0f-49bf-b30b-f08aa8736e39",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "ad3431de-eaa8-4c97-a1e2-1b45a6a76bb9",
-                            ConcurrencyStamp = "0285a836-77a4-4b71-810f-151f81f5b43d",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -574,22 +560,6 @@ namespace DecathlonWebshop.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClaimType = "Delete Product",
-                            ClaimValue = "Delete Product",
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ClaimType = "Add Product",
-                            ClaimValue = "Add Product",
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -627,13 +597,6 @@ namespace DecathlonWebshop.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa",
-                            RoleId = "980496f5-b4f2-4975-8e7f-cec5d2e001ab"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

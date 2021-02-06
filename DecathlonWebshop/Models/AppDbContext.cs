@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DecathlonWebshop.Models
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser,IdentityRole, string>
+    public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -27,18 +27,13 @@ namespace DecathlonWebshop.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            //seed categories
+            #region Seed Categories
             modelBuilder.Entity<Category>().HasData(new Category { Id = 1, Name = "Fruit pies" });
             modelBuilder.Entity<Category>().HasData(new Category { Id = 2, Name = "Cheese cakes" });
             modelBuilder.Entity<Category>().HasData(new Category { Id = 3, Name = "Seasonal pies" });
+            #endregion
 
-            ////seed categories
-            //modelBuilder.Entity<Category>().HasData(new Category { Id = 1, Name = "Swimming", Description = "All swimming products" });
-            //modelBuilder.Entity<Category>().HasData(new Category { Id = 2, Name = "Soccer", Description = "All Soccer products" });
-            //modelBuilder.Entity<Category>().HasData(new Category { Id = 3, Name = "Fitness", Description = "All Fitness products" });
-
-            //seed pies
-
+            #region Seed Pies
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 1,
@@ -46,13 +41,13 @@ namespace DecathlonWebshop.Models
                 Price = 12.95M,
                 ShortDescription = "Our famous apple pies!",
                 LongDescription =
-                    "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies.",
+          "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies.",
                 CategoryId = 1,
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg",
                 InStock = true,
                 IsProductOfTheWeek = true,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepiesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
@@ -69,7 +64,7 @@ namespace DecathlonWebshop.Models
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl =
                     "https://gillcleerenpluralsight.blob.core.windows.net/files/blueberrycheesecakesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
@@ -85,7 +80,7 @@ namespace DecathlonWebshop.Models
                 InStock = true,
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cheesecakesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
@@ -101,7 +96,7 @@ namespace DecathlonWebshop.Models
                 InStock = true,
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypiesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
@@ -118,7 +113,7 @@ namespace DecathlonWebshop.Models
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl =
                     "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepiesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
@@ -134,13 +129,13 @@ namespace DecathlonWebshop.Models
                 InStock = true,
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypiesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 7,
-                Name = "Peach Product",
+                Name = "Peach Pie",
                 Price = 15.95M,
                 ShortDescription = "Sweet as peach",
                 LongDescription =
@@ -150,13 +145,13 @@ namespace DecathlonWebshop.Models
                 InStock = false,
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpiesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 Id = 8,
-                Name = "Pumpkin Product",
+                Name = "Pumpkin Pie",
                 Price = 12.95M,
                 ShortDescription = "Our Halloween favorite",
                 LongDescription =
@@ -166,7 +161,7 @@ namespace DecathlonWebshop.Models
                 InStock = true,
                 IsProductOfTheWeek = true,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpiesmall.jpg",
-                
+
             });
 
 
@@ -183,7 +178,7 @@ namespace DecathlonWebshop.Models
                 InStock = true,
                 IsProductOfTheWeek = true,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/rhubarbpiesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
@@ -199,7 +194,7 @@ namespace DecathlonWebshop.Models
                 InStock = true,
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrypiesmall.jpg",
-                
+
             });
 
             modelBuilder.Entity<Product>().HasData(new Product
@@ -216,8 +211,78 @@ namespace DecathlonWebshop.Models
                 IsProductOfTheWeek = false,
                 ImageThumbnailUrl =
                     "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrycheesecakesmall.jpg",
-                
+
             });
+            #endregion
+
+            #region Add Admin User with full access
+
+            //AppicationUser
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                Id = "09036a82-6e96-4c74-b521-760131a784aa",
+                UserName = "Admin",
+                NormalizedUserName = "ADMIN",
+                Email = "admin@ehb.be",
+                NormalizedEmail = "ADMIN@EHB.BE",
+                EmailConfirmed = false,
+                PasswordHash = "AQAAAAEAACcQAAAAEJCH3PqMTk/hWAYggJmdC/MhNeVG21iE80PLJb+WWKpzGKLkzQp3hqt2GJus8je0ZA==",
+                SecurityStamp = "BXBND3XBXLJ2QQVYGXYF7KQKW3ZQKAD2",
+                ConcurrencyStamp = "4ce14a80-bb0d-4167-8b27-b0ebedb497e8",
+                PhoneNumber = null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+                Birthdate = DateTime.MinValue,
+                City = null,
+                Country = null
+            });
+
+            //IdentityRole
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "980496f5-b4f2-4975-8e7f-cec5d2e001ab",
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR",
+                ConcurrencyStamp = "fb8ec3dd-6d0f-49bf-b30b-f08aa8736e39"
+            });
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "ad3431de-eaa8-4c97-a1e2-1b45a6a76bb9",
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = "0285a836-77a4-4b71-810f-151f81f5b43d"
+            });
+
+            //IdentityUserRole
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                RoleId = "980496f5-b4f2-4975-8e7f-cec5d2e001ab"
+            });
+
+
+            //Claims
+            modelBuilder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
+            {
+                Id=1,
+                UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                ClaimType = "Delete Product",
+                ClaimValue = "Delete Product"
+            });
+
+            modelBuilder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
+            {
+                Id=2,
+                UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                ClaimType = "Add Product",
+                ClaimValue = "Add Product"
+            });
+
+            #endregion
         }
     }
 }
