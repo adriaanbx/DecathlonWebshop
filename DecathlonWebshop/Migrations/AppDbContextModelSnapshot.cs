@@ -17,7 +17,7 @@ namespace DecathlonWebshop.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("DecathlonWebshop.Auth.ApplicationUser", b =>
                 {
@@ -45,6 +45,9 @@ namespace DecathlonWebshop.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEnabled")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -91,6 +94,26 @@ namespace DecathlonWebshop.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "09036a82-6e96-4c74-b521-760131a784aa",
+                            AccessFailedCount = 0,
+                            Birthdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "4ce14a80-bb0d-4167-8b27-b0ebedb497e8",
+                            Email = "admin@ehb.be",
+                            EmailConfirmed = false,
+                            IsEnabled = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "ADMIN@EHB.BE",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJCH3PqMTk/hWAYggJmdC/MhNeVG21iE80PLJb+WWKpzGKLkzQp3hqt2GJus8je0ZA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "BXBND3XBXLJ2QQVYGXYF7KQKW3ZQKAD2",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("DecathlonWebshop.Models.Category", b =>
@@ -247,6 +270,7 @@ namespace DecathlonWebshop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -359,7 +383,7 @@ namespace DecathlonWebshop.Migrations
                             InStock = false,
                             IsProductOfTheWeek = false,
                             LongDescription = "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies.",
-                            Name = "Peach Product",
+                            Name = "Peach Pie",
                             Price = 15.95m,
                             Sex = " ",
                             ShortDescription = "Sweet as peach"
@@ -373,7 +397,7 @@ namespace DecathlonWebshop.Migrations
                             InStock = true,
                             IsProductOfTheWeek = true,
                             LongDescription = "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies.",
-                            Name = "Pumpkin Product",
+                            Name = "Pumpkin Pie",
                             Price = 12.95m,
                             Sex = " ",
                             ShortDescription = "Our Halloween favorite"
@@ -420,6 +444,26 @@ namespace DecathlonWebshop.Migrations
                             Sex = " ",
                             ShortDescription = "You'll love it!"
                         });
+                });
+
+            modelBuilder.Entity("DecathlonWebshop.Models.ProductReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Review")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductReviews");
                 });
 
             modelBuilder.Entity("DecathlonWebshop.Models.ShoppingCartItem", b =>
@@ -470,6 +514,22 @@ namespace DecathlonWebshop.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "980496f5-b4f2-4975-8e7f-cec5d2e001ab",
+                            ConcurrencyStamp = "fb8ec3dd-6d0f-49bf-b30b-f08aa8736e39",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "ad3431de-eaa8-4c97-a1e2-1b45a6a76bb9",
+                            ConcurrencyStamp = "0285a836-77a4-4b71-810f-151f81f5b43d",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -518,17 +578,31 @@ namespace DecathlonWebshop.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "Delete Product",
+                            ClaimValue = "Delete Product",
+                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaimType = "Add Product",
+                            ClaimValue = "Add Product",
+                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -557,6 +631,13 @@ namespace DecathlonWebshop.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                            RoleId = "980496f5-b4f2-4975-8e7f-cec5d2e001ab"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -565,12 +646,10 @@ namespace DecathlonWebshop.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -608,6 +687,17 @@ namespace DecathlonWebshop.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("DecathlonWebshop.Models.ProductReview", b =>
+                {
+                    b.HasOne("DecathlonWebshop.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("DecathlonWebshop.Models.ShoppingCartItem", b =>
@@ -678,6 +768,11 @@ namespace DecathlonWebshop.Migrations
             modelBuilder.Entity("DecathlonWebshop.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("DecathlonWebshop.Models.Product", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

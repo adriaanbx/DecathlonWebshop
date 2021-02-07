@@ -1,10 +1,22 @@
-﻿@model Product
+﻿@using Microsoft.AspNetCore.Localization
+@using System.Globalization
+
+@model Product
+@inject IViewLocalizer Localizer
+
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>(); //what culture was used when receiving request
+}
 
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
         <img src="@Model.ImageThumbnailUrl" alt="">
         <div class="caption">
-            <h3 class="pull-right">@Model.Price.ToString("c")</h3>
+            @* Todo het valuta teken wordt enkel getoond indien je "en-US" meegeeft en niet enkel "en", wanneer je dan in startup alles veranderd naar locale talen dan zal asp.net geen requesten kunnen tonen in het nederlands als iemand enkel "nl-BE" vraagt *@
+            @* => gekozen om hardcored € te gebruiken *@
+            @*<h3 class="pull-right">@Model.Price.ToString("c", requestCulture.RequestCulture.UICulture)</h3>*@
+            <h3 class="pull-right">@Model.Price.ToString("c", new CultureInfo("nl-BE"))</h3>
             <h3>
                 <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
             </h3>
@@ -15,7 +27,7 @@
                 <a class="btn btn-primary"
                    asp-controller="ShoppingCart"
                    asp-action="AddToShoppingCart"
-                   asp-route-productId="@Model.Id">Add to cart</a>
+                   asp-route-productId="@Model.Id">@Localizer["TXT_AddToCart"]</a>
             </p>
         </div>
     </div>

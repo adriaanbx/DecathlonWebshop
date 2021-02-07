@@ -1,7 +1,10 @@
 ﻿@model Order
+@inject IViewLocalizer Localizer
+
+@* TODO: Hoe kan je labels vertalen die gecreeerd zijn met asp-for taghelper? De teksten zijn voorzien met DataAnnotation dus zou moeten vertalen *@
 
 <form asp-action="Checkout" method="post" class="form-horizontal" role="form">
-    <h4>You're just one step away from your delicious pies.</h4>
+    <h4>@Localizer["TXT_Title"]</h4>
 
     <div asp-validation-summary="All" class="text-danger"></div>
 

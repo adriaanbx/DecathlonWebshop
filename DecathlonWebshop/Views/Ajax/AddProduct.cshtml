@@ -1,0 +1,145 @@
+﻿@model DecathlonWebshop.ViewModel.ProductEditViewModel
+
+<h2>Create a new product</h2>
+
+<form asp-controller="Products" asp-action="PostProduct" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+    <h4>Enter the product details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Product.Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.Name" class="form-control" id="name" />
+            <span asp-validation-for="Product.Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.ShortDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.ShortDescription" id="shortDescription" class="form-control" />
+            <span asp-validation-for="Product.ShortDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.LongDescription" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.LongDescription" id="longDescription" class="form-control" />
+            <span asp-validation-for="Product.LongDescription" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.Price" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.Price" id="price" class="form-control" />
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.ImageThumbnailUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.ImageThumbnailUrl" id="ImageThumbnailUrl" class="form-control" />
+            <span asp-validation-for="Product.ImageThumbnailUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.ImageUrl" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.ImageUrl" id="ImageUrl" class="form-control" />
+            <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.InStock" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.InStock" id="InStock" class="form-control" />
+            <span asp-validation-for="Product.InStock" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.IsProductOfTheWeek" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Product.IsProductOfTheWeek" id="IsProductOfTheWeek" class="form-control" />
+            <span asp-validation-for="Product.IsProductOfTheWeek" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Categories" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="CategoryId" id="Category" class="form-control"
+                    asp-items="Model.Categories"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" onclick="AddProduct()" class="btn btn-primary" value="Create pie" />
+        </div>
+    </div>
+</form>
+
+<script>
+    async function AddProduct() {
+
+        //const response = await fetch('api/products');
+        //const json = await response.json();
+
+
+        //console.log(Array.from(json));
+        //Array.from(json).forEach(function (product) {
+        //    document.getElementById('products').innerHTML += '<li>' + product.name + '<li>';
+        //});
+
+
+
+         //var response = await fetch("@Url.Action("Products", "PostProduct")", {
+       // event.preventDefault();
+        var formData = new FormData(form);
+        var response = await fetch("api/products"), {
+                method: 'POST',
+                body: formData
+            });
+
+      // read response stream
+      if (!response.ok) {
+        alert("bad response: " + response.statusText);
+        return;
+      }
+      var data = await response.json();
+        console.log(data);
+        alert("Pie added to database");
+    }
+</script>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function AddProduct() {
+        
+        //Add the Field values to FormData object.
+        var formData = new FormData();
+        formData.append("firstName", $("#txtFirstName").val());
+        formData.append("lastName", $("#txtLastName").val());
+
+        var response = await fetch("api/products"), {
+            method: 'POST',
+            body: formData
+        });
+
+        // read response stream
+        if (!response.ok) {
+            alert("bad response: " + response.statusText);
+            return;
+        }
+        var data = await response.json();
+        console.log(data);
+        alert("Pie added to database");
+    }
+</script>

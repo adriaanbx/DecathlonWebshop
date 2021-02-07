@@ -19,7 +19,7 @@ namespace DecathlonWebshop.Auth
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimumOrderAgeRequirement requirement)
         {
-            //TODO context.User.Claims geeft alle claims
+            //TODO context.User.Claims geeft alle claims, DateOfBirth best niet in claim zetten maar apparte property maken in model
             if (!context.User.HasClaim(c => c.Type == ClaimTypes.DateOfBirth))
             {
                 return Task.CompletedTask;

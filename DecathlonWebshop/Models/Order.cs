@@ -38,13 +38,16 @@ namespace DecathlonWebshop.Models
         public string ZipCode { get; set; }
 
         [Required(ErrorMessage = "Please enter your city")]
+        [Display(Name = "City")]
         [StringLength(50)]
         public string City { get; set; }
 
         [StringLength(10)]
+        [Display(Name = "State")]
         public string State { get; set; }
 
         [Required(ErrorMessage = "Please enter your country")]
+        [Display(Name = "Country")]
         [StringLength(50)]
         public string Country { get; set; }
 
