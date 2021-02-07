@@ -100,10 +100,10 @@ namespace DecathlonWebshop.Controllers
             return NoContent();
         }
 
-        private async Task<bool> ProductExists(int id)
-        {
-            var products = await _productRepository.GetProductsAsync();
-            return products.Any(e => e.Id == id);
-        }
+        //private async Task<bool> ProductExists(int id)
+        //{
+        //    var products = await _productRepository.GetProductsAsync();
+        //    return products.Any(e => e.Id == id);
+        //}
     }
 }

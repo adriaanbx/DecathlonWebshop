@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="container">
-
+        <partial name="_CookieConsentPartial" />
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -49,6 +49,12 @@
                                    asp-action="Index">@Localizer["TXT_ProductManagement"]</a>
                             </li>
                         }
+                        @* TODO veranderen naar nuttige ajax call van een "post" form *@
+                        <environment include="Development">
+                            <li class="dropdown">
+                                <a asp-controller="Ajax"
+                               asp-action="Index">Ajax Call</a></li>
+                        </environment>
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>

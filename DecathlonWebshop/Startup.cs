@@ -4,6 +4,7 @@ using DecathlonWebshop.Models;
 using DecathlonWebshop.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -45,6 +46,7 @@ namespace DecathlonWebshop
                  options.Password.RequireNonAlphanumeric = true;
                  options.Password.RequireUppercase = true;
                  options.User.RequireUniqueEmail = true;
+                 options.SignIn.RequireConfirmedEmail = true;
              })
             .AddDefaultTokenProviders()
             .AddDefaultUI()
@@ -84,7 +86,14 @@ namespace DecathlonWebshop
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/AccessDenied");
+                options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
             });
+
+            //change token lifespan of all token types to x hours if you want to change lifretime of just one type of token, we have to create a custom
+            //DataProtectorTokenProvider
+            //DataProtectionTokenProviderOptions
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+                options.TokenLifespan = TimeSpan.FromHours(5));
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -112,6 +121,15 @@ namespace DecathlonWebshop
                     options.SupportedUICultures = supportedCultures;
                 });
 
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential 
+                // cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                // requires using Microsoft.AspNetCore.Http;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,10 +141,14 @@ namespace DecathlonWebshop
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //catch 500 (exceptions) errors
+                app.UseExceptionHandler("/Error");
+                //catch 404 (Not Found) errors
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             // open for public otherwise put in Development statement
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DecathlonWebshop API v1"));
@@ -134,6 +156,7 @@ namespace DecathlonWebshop
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
             app.UseSession();
 
             app.UseRouting();
