@@ -225,7 +225,7 @@ namespace DecathlonWebshop.Models
                 NormalizedUserName = "ADMIN",
                 Email = "admin@ehb.be",
                 NormalizedEmail = "ADMIN@EHB.BE",
-                EmailConfirmed = false,
+                EmailConfirmed = true,
                 PasswordHash = "AQAAAAEAACcQAAAAEJCH3PqMTk/hWAYggJmdC/MhNeVG21iE80PLJb+WWKpzGKLkzQp3hqt2GJus8je0ZA==",
                 SecurityStamp = "BXBND3XBXLJ2QQVYGXYF7KQKW3ZQKAD2",
                 ConcurrencyStamp = "4ce14a80-bb0d-4167-8b27-b0ebedb497e8",

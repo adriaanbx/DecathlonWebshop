@@ -22,8 +22,10 @@ namespace DecathlonWebshop.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Compare("Password")]
+
         [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Password and Confirm Password must match")]
         public string ConfirmPassword { get; set; }
 
         public string ReturnUrl { get; set; }

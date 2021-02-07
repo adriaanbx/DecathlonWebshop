@@ -10,7 +10,7 @@ namespace DecathlonWebshop.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Birthdate", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "09036a82 - 6e96 - 4c74 - b521 - 760131a784aa", 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "4ce14a80-bb0d-4167-8b27-b0ebedb497e8", null, "admin@ehb.be", false, true, null, "ADMIN@EHB.BE", "ADMIN", "AQAAAAEAACcQAAAAEJCH3PqMTk/hWAYggJmdC/MhNeVG21iE80PLJb+WWKpzGKLkzQp3hqt2GJus8je0ZA==", null, false, "BXBND3XBXLJ2QQVYGXYF7KQKW3ZQKAD2", false, "Admin" });
+                values: new object[] { "09036a82 - 6e96 - 4c74 - b521 - 760131a784aa", 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "4ce14a80-bb0d-4167-8b27-b0ebedb497e8", null, "admin@ehb.be", true, true, null, "ADMIN@EHB.BE", "ADMIN", "AQAAAAEAACcQAAAAEJCH3PqMTk/hWAYggJmdC/MhNeVG21iE80PLJb+WWKpzGKLkzQp3hqt2GJus8je0ZA==", null, false, "BXBND3XBXLJ2QQVYGXYF7KQKW3ZQKAD2", false, "Admin" });
 
             migrationBuilder.UpdateData(
                 table: "Products",
