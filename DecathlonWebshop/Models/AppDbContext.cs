@@ -220,15 +220,15 @@ namespace DecathlonWebshop.Models
             //AppicationUser
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
             {
-                Id = "09036a82-6e96-4c74-b521-760131a784aa",
+                Id = "5b604f61-e30f-4307-bea5-7365d61cb7c6",
                 UserName = "Admin",
                 NormalizedUserName = "ADMIN",
                 Email = "admin@ehb.be",
                 NormalizedEmail = "ADMIN@EHB.BE",
                 EmailConfirmed = true,
-                PasswordHash = "AQAAAAEAACcQAAAAEJCH3PqMTk/hWAYggJmdC/MhNeVG21iE80PLJb+WWKpzGKLkzQp3hqt2GJus8je0ZA==",
-                SecurityStamp = "BXBND3XBXLJ2QQVYGXYF7KQKW3ZQKAD2",
-                ConcurrencyStamp = "4ce14a80-bb0d-4167-8b27-b0ebedb497e8",
+                PasswordHash = "AQAAAAEAACcQAAAAED+Y/MGaT1oxoqQuUBbX7yDct5O6IukzYoX13P/qPFPCNi7YTeA9G1J1w9V5KIIyNQ==",
+                SecurityStamp = "6X3AIBHQ7VN3WINUXRQYDXA3OJ33UOQU",
+                ConcurrencyStamp = "28111b36-1030-4e0f-898b-2af46098a355",
                 PhoneNumber = null,
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
@@ -261,7 +261,7 @@ namespace DecathlonWebshop.Models
             //IdentityUserRole
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
-                UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                UserId = "5b604f61-e30f-4307-bea5-7365d61cb7c6",
                 RoleId = "980496f5-b4f2-4975-8e7f-cec5d2e001ab"
             });
 
@@ -270,7 +270,7 @@ namespace DecathlonWebshop.Models
             modelBuilder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
             {
                 Id=1,
-                UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                UserId = "5b604f61-e30f-4307-bea5-7365d61cb7c6",
                 ClaimType = "Delete Product",
                 ClaimValue = "Delete Product"
             });
@@ -278,7 +278,7 @@ namespace DecathlonWebshop.Models
             modelBuilder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
             {
                 Id=2,
-                UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                UserId = "5b604f61-e30f-4307-bea5-7365d61cb7c6",
                 ClaimType = "Add Product",
                 ClaimValue = "Add Product"
             });

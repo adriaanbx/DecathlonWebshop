@@ -98,19 +98,19 @@ namespace DecathlonWebshop.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "09036a82-6e96-4c74-b521-760131a784aa",
+                            Id = "5b604f61-e30f-4307-bea5-7365d61cb7c6",
                             AccessFailedCount = 0,
                             Birthdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "4ce14a80-bb0d-4167-8b27-b0ebedb497e8",
+                            ConcurrencyStamp = "28111b36-1030-4e0f-898b-2af46098a355",
                             Email = "admin@ehb.be",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             IsEnabled = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@EHB.BE",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJCH3PqMTk/hWAYggJmdC/MhNeVG21iE80PLJb+WWKpzGKLkzQp3hqt2GJus8je0ZA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED+Y/MGaT1oxoqQuUBbX7yDct5O6IukzYoX13P/qPFPCNi7YTeA9G1J1w9V5KIIyNQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "BXBND3XBXLJ2QQVYGXYF7KQKW3ZQKAD2",
+                            SecurityStamp = "6X3AIBHQ7VN3WINUXRQYDXA3OJ33UOQU",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -585,14 +585,14 @@ namespace DecathlonWebshop.Migrations
                             Id = 1,
                             ClaimType = "Delete Product",
                             ClaimValue = "Delete Product",
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
+                            UserId = "5b604f61-e30f-4307-bea5-7365d61cb7c6"
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "Add Product",
                             ClaimValue = "Add Product",
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa"
+                            UserId = "5b604f61-e30f-4307-bea5-7365d61cb7c6"
                         });
                 });
 
@@ -635,7 +635,7 @@ namespace DecathlonWebshop.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "09036a82-6e96-4c74-b521-760131a784aa",
+                            UserId = "5b604f61-e30f-4307-bea5-7365d61cb7c6",
                             RoleId = "980496f5-b4f2-4975-8e7f-cec5d2e001ab"
                         });
                 });

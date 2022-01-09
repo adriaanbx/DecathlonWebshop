@@ -9,12 +9,12 @@ namespace DecathlonWebshop.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "Delete Product", "Delete Product", "09036a82-6e96-4c74-b521-760131a784aa" });
+                values: new object[] { 1, "Delete Product", "Delete Product", "5b604f61-e30f-4307-bea5-7365d61cb7c6" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 2, "Add Product", "Add Product", "09036a82-6e96-4c74-b521-760131a784aa" });
+                values: new object[] { 2, "Add Product", "Add Product", "5b604f61-e30f-4307-bea5-7365d61cb7c6" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -16,7 +16,7 @@ namespace DecathlonWebshop.Migrations
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "09036a82-6e96-4c74-b521-760131a784aa",
+                keyValue: "5b604f61-e30f-4307-bea5-7365d61cb7c6",
                 column: "IsEnabled",
                 value: true);
         }

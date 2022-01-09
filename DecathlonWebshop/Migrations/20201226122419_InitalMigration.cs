@@ -35,8 +35,7 @@ namespace DecathlonWebshop.Migrations
                     ImageThumbnailUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsProductOfTheWeek = table.Column<bool>(type: "bit", nullable: false),
                     InStock = table.Column<bool>(type: "bit", nullable: false),
-                    CatgeoryId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
