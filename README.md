@@ -14,7 +14,7 @@ With this project I learned following topics:
 - User Authentication and Autorization using ASP.NET Core Identity (Users, Roles and claims)
 - Multilingual applications using .NET Core Localization
 - Ajax calls
-- Restfull API with SWagger
+- Restfull API with Swagger
 
 
 ## Platform Requirements
@@ -32,11 +32,13 @@ With this project I learned following topics:
 5. Run the project
 
 ## How to use the project
-To access all the functionalities, log in with the admin account.<br/>
+- To access all the functionalities, log in with the admin account.<br/>
 username = admin <br/>
-password = Password123!
-<br/><br/>
+password = Password123! <br/>
 Now you are able to create, edit and remove new products and users. As well as user management.
+- In developper mode the development error page is used, in production mode all exceptions and 404 errors are caught in the custom error page.
+- The Swagger can be reached at "/swagger".
+- The tokens generated for password reset and email confirmation are logged in the console, debug or log file with location 'C:\temp'.
 
 ## Credits
 I would strongly recommend Gill Cleeren's Pluralsight Course: [Building Web Applications with ASP.NET Core MVC](https://www.pluralsight.com/courses/building-aspdotnet-core-mvc-web-applications)<br/>Everything is built step by step and clearly explained so that you are able to build a working web shop in a relatively short time.
